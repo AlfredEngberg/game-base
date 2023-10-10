@@ -17,8 +17,8 @@ export default class Game {
   update(deltaTime) {
     if (!this.gameOver) {
       this.gameTime += deltaTime
+      this.player.update(deltaTime)
     }
-    this.x += this.speedX
   }
 
   draw(context) {
