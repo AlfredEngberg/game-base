@@ -9,7 +9,7 @@ export default class Player {
     this.y = 100
 
     this.projectiles = []
-    this.shootTimer
+    this.shootTimer = 1
 
     this.speedX = 0
     this.speedY = 0
@@ -54,9 +54,21 @@ export default class Player {
     })
   }
 
-  shoot() {
-    this.projectiles.push(
-      new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
-    )
+  shoot(shootTimer, deltaTime) {
+    if (this.game.keys.includes('z') && this.shootTimer <= 0) {
+      console.log('shootTimer är ' + this.shootTimer)
+      this.projectiles.push(
+        new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
+      )
+      this.shootTimer = 0.5
+      console.log('shootTimer är efter att pangat' + this.shootTimer)
+    }
+
+    if (this.shootTimer > 0) {
+      console.log('shootTimer är ' + this.shootTimer)
+      console.log('deltaTime är ' + deltaTime)
+      this.shootTimer -= deltaTime
+    }
+
   }
 }
