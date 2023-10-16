@@ -6,3 +6,6 @@ Jag gjorde så man kan skjuta och gå, nästa gång ska jag se till att lägga e
 
 12/10 2023
 Jag gjorde inte så mycket, jag försökte bara fixa problemet med timern men det gick inte så bra, Detlatime undefined, shoottime undefined. Nästa gång så ska jag fixa det.
+
+16/10 2023
+Jag fixade fortfarande med timern jag vet inte vad jag ska göra jag har läst det som står i md dokumentet men förstår fortfarande inte. Jag ska använda deltatime men den är null så det går inte jag vet inte varför eller hur, jag ska inte vars allt ska skrivas allt går åt skogen hjälp
