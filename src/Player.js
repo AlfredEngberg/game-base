@@ -40,6 +40,16 @@ export default class Player {
     this.projectiles.forEach((projectile) => {
       projectile.update()
     })
+    
+    if (this.shootTimer > 0) {
+      this.shootTimer -= 1
+    }
+
+    if (this.shootTimer <= 0 && this.game.keys.includes('z')) {
+      this.game.player.shoot()
+      this.shootTimer = 5
+    }
+
     this.projectiles = this.projectiles.filter(
       (projectile) => !projectile.markedForDeletion
     )
@@ -54,17 +64,10 @@ export default class Player {
     })
   }
 
-  shoot(shootTimer) {
+  shoot() {
     console.log('pang')
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )
-    console.log('shootTimer är efter att pangat' + this.shootTimer)
-
-    if (this.shootTimer > 0) {
-      console.log('shootTimer är efter att pangat ' + this.shootTimer)
-      this.shootTimer -= 1
-    }
-
   }
 }
