@@ -3,7 +3,7 @@ export default class UserInterface {
         this.game = game
         this.fontSize = 25
         this.fontFamily = 'Arial'
-        this.color = 'white'
+        this.color = 'wheat'
     }
 
     draw(context) {
