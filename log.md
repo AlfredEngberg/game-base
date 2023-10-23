@@ -12,3 +12,6 @@ Jag fixade fortfarande med timern jag vet inte vad jag ska göra jag har läst d
 
 19/10 2023
 Jag gav upp på timer och gick vidare, jag hann göra UI och enemy classen, jag hann göra slimes och sen ska jag fortsätta med att spawna fiender.
+
+23/10 2023
+Jag skrev så att fiender spawnas och kan dödas, nästa gång ska jag fixa med projektilen och om jag hinner så att spelaren och fiender ramlar mot marken

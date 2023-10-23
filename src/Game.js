@@ -1,3 +1,4 @@
+import Slime from './Slime.js'
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
@@ -14,7 +15,7 @@ export default class Game {
     this.gravity = 1
     this.debug = false
     this.enemies = []
-    this.enemyTimer = 0
+    this.enemyTimer = 1
     this.enemyInterval = 1000
 
     this.player = new Player(this)
@@ -22,23 +23,57 @@ export default class Game {
 
   }
 
+
   update(deltaTime) {
     if (!this.gameOver) {
       this.gameTime += deltaTime
     }
     this.player.update(deltaTime)
 
-    //enemy
+
+    //Enemy
     if (this.enemyTimer > this.enemyInterval && !this.gameOver) {
       this.addEnemy()
       this.enemyTimer = 0
     } else {
       this.enemyTimer += deltaTime
     }
+
+    this.enemies.forEach((enemy) => enemy.update(deltaTime))
+    this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+
+    //Collition
+    this.enemies.forEach((enemy) => {
+      enemy.update(deltaTime)
+      if (this.checkCollision(this.player, enemy)) {
+        enemy.markedForDeletion = true
+        
+      }
+      this.player.projectiles.forEach((projectile) => {
+        if (this.checkCollision(projectile, enemy)) {
+          enemy.markedForDeletion = true
+          projectile.markedForDeletion = true
+        }
+      })
+    })
   }
 
   draw(context) {
     this.ui.draw(context)
     this.player.draw(context)
+    this.enemies.forEach((enemy) => enemy.draw(context))
+  }
+
+  addEnemy() {
+    this.enemies.push(new Slime(this))
+  }
+
+  checkCollision(object1, object2) {
+    return (
+      object1.x < object2.x + object2.width &&
+      object1.x + object1.width > object2.x &&
+      object1.y < object2.y + object2.height &&
+      object1.height + object1.y > object2.y
+    )
   }
 }
