@@ -15,3 +15,6 @@ Jag gav upp på timer och gick vidare, jag hann göra UI och enemy classen, jag 
 
 23/10 2023
 Jag skrev så att fiender spawnas och kan dödas, nästa gång ska jag fixa med projektilen och om jag hinner så att spelaren och fiender ramlar mot marken
+
+24/10 2023
+Jag skrev till en zombie fiende och gjorde mark, gjorde platformar och nästa gång så kommer jag göra så att projektilen tas bort för att immetera ett slag
