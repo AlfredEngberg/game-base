@@ -11,6 +11,8 @@ export default class Player {
     this.projectiles = []
     this.shootTimer = 1
 
+    this.hp = 10
+
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 10
@@ -40,7 +42,7 @@ export default class Player {
     this.projectiles.forEach((projectile) => {
       projectile.update()
     })
-    
+
     if (this.shootTimer > 0) {
       this.shootTimer -= 1
     }

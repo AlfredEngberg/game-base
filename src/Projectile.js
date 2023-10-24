@@ -2,11 +2,11 @@ export default class Projectile {
     constructor(game, x, y) {
         this.game = game
         this.width = 4
-        this.height = 10
+        this.height = 60
         this.x = x
-        this.y = y
+        this.y = y - 25
 
-        this.range = 500
+        this.range
         this.speed = 5
         this.damage = 1
         this.markedForDeletion = false

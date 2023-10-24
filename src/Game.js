@@ -2,6 +2,7 @@ import Slime from './Slime.js'
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
+import Zombie from './Zombie.js'
 
 export default class Game {
   constructor(width, height) {
@@ -19,8 +20,6 @@ export default class Game {
     this.enemyInterval = 1000
 
     this.player = new Player(this)
-
-
   }
 
 
@@ -46,16 +45,17 @@ export default class Game {
     this.enemies.forEach((enemy) => {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
-        enemy.markedForDeletion = true
-        
+        enemy.markedForDeletion -= true
+
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          enemy.markedForDeletion = true
+          enemy.lives -= 1
           projectile.markedForDeletion = true
         }
       })
     })
+
   }
 
   draw(context) {
@@ -66,6 +66,7 @@ export default class Game {
 
   addEnemy() {
     this.enemies.push(new Slime(this))
+    this.enemies.push(new Zombie(this))
   }
 
   checkCollision(object1, object2) {
