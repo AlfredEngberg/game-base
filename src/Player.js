@@ -13,6 +13,7 @@ export default class Player {
 
     this.hp = 10
 
+    this.jumpSpeed = 50
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 10
@@ -27,12 +28,19 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp')) {
-      this.speedY = -this.maxSpeed
+    if  (this.game.keys.includes('ArrowUp') && this.grounded) {
+      this.speedY = -this.jumpSpeed
+      this.grounded = false
     } else if (this.game.keys.includes('ArrowDown')) {
       this.speedY = this.maxSpeed
     } else {
       this.speedY = 0
+    }
+
+    if (this.grounded) {
+      this.speedY = 0
+    } else {
+      this.speedY += this.game.gravity
     }
 
     this.y += this.speedY
