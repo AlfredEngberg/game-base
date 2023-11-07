@@ -1,4 +1,4 @@
-import Slime from './Slime.js'
+import Slime from './Slime.js' 
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'

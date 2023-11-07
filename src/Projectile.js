@@ -1,9 +1,9 @@
 export default class Projectile {
     constructor(game, x, y) {
         this.game = game
-        this.width = 4
+        this.width = 100
         this.height = 60
-        this.x = x
+        this.x = x - 30
         this.y = y - 25
 
         this.range
