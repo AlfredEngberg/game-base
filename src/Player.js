@@ -1,4 +1,5 @@
 import Projectile from './Projectile.js'
+import spriteImage from './assets/sprites/Sprites x2.png'
 
 export default class Player {
   constructor(game) {
@@ -17,6 +18,17 @@ export default class Player {
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 10
+
+    // sprite animation
+    this.frameX = 0
+    this.frameY = 1
+    this.maxFrame = 6
+    this.fps = 20
+    this.timer = 0
+    this.interval = 1000 / this.fps
+
+    // flip sprite direction
+    this.flip = false
   }
 
   update(deltaTime) {
@@ -28,7 +40,7 @@ export default class Player {
       this.speedX = 0
     }
 
-    if  (this.game.keys.includes('ArrowUp') && this.grounded) {
+    if (this.game.keys.includes('ArrowUp') && this.grounded) {
       this.speedY = -this.jumpSpeed
       this.grounded = false
     } else if (this.game.keys.includes('ArrowDown')) {
@@ -72,6 +84,26 @@ export default class Player {
     this.projectiles.forEach((projectile) => {
       projectile.draw(context)
     })
+
+    // draw sprite image
+    if (this.flip) {
+      context.save()
+      context.scale(-1, 1)
+    }
+
+    context.drawImage(
+      this.image,
+      this.frameX * this.width,
+      this.frameY * this.height - 14,
+      this.width,
+      this.height,
+      this.flip ? this.x * -1 - this.width : this.x,
+      this.y,
+      this.width,
+      this.height
+    )
+
+    context.restore()
   }
 
   shoot() {

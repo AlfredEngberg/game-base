@@ -16,7 +16,6 @@ export default class Game {
     this.gameOver = false
     this.gravity = 6
     this.debug = false
-    this.enemies = []
     this.enemyTimer = 1
     this.enemyInterval = 1000
     this.platforms = [
