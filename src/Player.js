@@ -1,25 +1,23 @@
 import Projectile from './Projectile.js'
-import spriteImage from './assets/sprites/Idle Run (78x58).png'
-import idleAsset from './assets/sprites/Idle (78x58).png'
-import runAsset from './assets/sprites/Run (78x58).png'
-import attackAsset from './assets/sprites/Attack (78x58).png'
+import spriteImage from './assets/sprites/Sprites.png'
+import idleAsset from './assets/sprites/Sprites.png'
+import runAsset from './assets/sprites/Sprites.png'
+import attackAsset from './assets/sprites/Sprites.png'
 
 export default class Player {
   constructor(game) {
     this.game = game
-    this.width = 78
+    this.width = 62
     this.height = 58
-    this.x = 50
+    this.x = 30
     this.y = 100
-
-    this.frameX = 0
 
     this.projectiles = []
 
     this.speedX = 0
     this.speedY = 0
-    this.maxSpeed = 6
-    this.jumpSpeed = 14
+    this.maxSpeed = 8
+    this.jumpSpeed = 50
     this.grounded = false
 
     // adding sprite image
@@ -32,17 +30,18 @@ export default class Player {
 
     // sprite animation
     this.frameX = 0
+    this.frameY = 0
     this.maxFrame = 0
     this.animationFps = 20
     this.animationTimer = 0
     this.animationInterval = 1000 / this.animationFps
     this.idle = {
       image: idleImage,
-      frames: 11,
+      frames: 1,
     }
     this.run = {
       image: runImage,
-      frames: 8,
+      frames: 4,
     }
     this.attack = {
       image: attackImage,
@@ -149,7 +148,7 @@ export default class Player {
     context.drawImage(
       this.image,
       this.frameX * this.width,
-      -14,
+      this.frameY * this.height,
       this.width,
       this.height,
       this.flip ? this.x * -1 - this.width : this.x,
