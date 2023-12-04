@@ -1,9 +1,9 @@
-import Slime from './Slime.js' 
 import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Zombie from './Zombie.js'
 import Platform from './Platform.js'
+import Vampire from './Vampire.js'
 
 export default class Game {
   constructor(width, height) {
@@ -75,18 +75,17 @@ export default class Game {
         }
       })
     })
-
   }
 
   draw(context) {
-    this.ui.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
+    this.ui.draw(context)
     this.platforms.forEach((platform) => platform.draw(context))
   }
 
   addEnemy() {
-    this.enemies.push(new Slime(this))
+    this.enemies.push(new Vampire(this))
     this.enemies.push(new Zombie(this))
   }
 

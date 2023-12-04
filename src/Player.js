@@ -1,8 +1,5 @@
 import Projectile from './Projectile.js'
 import spriteImage from './assets/sprites/Sprites.png'
-import idleAsset from './assets/sprites/Sprites.png'
-import runAsset from './assets/sprites/Sprites.png'
-import attackAsset from './assets/sprites/Sprites.png'
 
 export default class Player {
   constructor(game) {
@@ -17,16 +14,13 @@ export default class Player {
     this.speedX = 0
     this.speedY = 0
     this.maxSpeed = 8
-    this.jumpSpeed = 50
+    this.jumpSpeed = 45
     this.grounded = false
 
     // adding sprite image
     const idleImage = new Image()
-    idleImage.src = idleAsset
-    const runImage = new Image()
-    runImage.src = runAsset
-    const attackImage = new Image()
-    attackImage.src = attackAsset
+    idleImage.src = spriteImage
+    this.image = idleImage
 
     // sprite animation
     this.frameX = 0
@@ -36,18 +30,17 @@ export default class Player {
     this.animationTimer = 0
     this.animationInterval = 1000 / this.animationFps
     this.idle = {
-      image: idleImage,
+      frameY: 0,
       frames: 1,
     }
     this.run = {
-      image: runImage,
+      frameY: 0,
       frames: 4,
     }
     this.attack = {
-      image: attackImage,
+      frameY: 2.15,
       frames: 3,
     }
-    this.image = this.idle.image
 
     // flip sprite direction
     this.flip = false
@@ -65,31 +58,32 @@ export default class Player {
       this.speedX = 0
     }
 
-    if (this.game.keys.includes('ArrowUp') && this.grounded) {
-      this.speedY = -this.jumpSpeed
-      this.grounded = false
-    }
-
     if (this.grounded) {
       this.speedY = 0
     } else {
       this.speedY += this.game.gravity
     }
 
-    console.log(this.shooting)
+    if (this.game.keys.includes('ArrowUp') && this.grounded) {
+      this.speedY = -this.jumpSpeed
+      this.grounded = false
+    }
+
+
+    // console.log(this.shooting)
     // play run or idle animation
     if (this.shooting) {
       this.maxFrame = this.attack.frames
-      this.image = this.attack.image
+      this.frameY = this.attack.frameY
       if (this.frameX === this.attack.frames - 1) {
         this.shooting = false
       }
     } else if (this.speedX !== 0) {
       this.maxFrame = this.run.frames
-      this.image = this.run.image
+      this.frameY = this.run.frameY
     } else {
       this.maxFrame = this.idle.frames
-      this.image = this.idle.image
+      this.frameY = this.idle.frameY
     }
 
     this.y += this.speedY
@@ -163,6 +157,8 @@ export default class Player {
   shoot() {
     this.shooting = true
     console.log('shoot ', this.shooting)
+    this.frameY = this.attack.frameY
+    this.maxFrame = this.attack.frames
     this.projectiles.push(
       new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
     )

@@ -18,3 +18,9 @@ Jag skrev så att fiender spawnas och kan dödas, nästa gång ska jag fixa med 
 
 24/10 2023
 Jag skrev till en zombie fiende och gjorde mark, gjorde platformar och nästa gång så kommer jag göra så att projektilen tas bort för att immetera ett slag
+
+30/11 2023
+Jag har glömt att skriva logbok men jag ska lägga in sprites på monster nu. Jag fixade monster Zombir och vampyr. Jag ändrade animation sättet från att byta bild till att byta Y-värde (där man kollar i sprites)
+
+05/12 2023
+Idag så fixade jag animation för fiender och spelaren, fixade slagen och jag fixade ett problem med kollition. nästa gång ska jag fixa timer och instruktioner för hur den fungerar.
