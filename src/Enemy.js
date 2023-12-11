@@ -18,7 +18,7 @@ export default class Enemy {
         this.frameX = 0
         this.frameY = 1
         this.maxFrame = 8
-        this.animationFps = 20
+        this.animationFps = 4
         this.animationTimer = 0
         this.animationInterval = 1000 / this.animationFps
     }
