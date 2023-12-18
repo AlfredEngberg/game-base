@@ -7,6 +7,7 @@ import Vampire from './Vampire.js'
 
 export default class Game {
   constructor(width, height) {
+    this.score = 0
     this.width = width
     this.height = height
     this.input = new InputHandler(this)
@@ -51,12 +52,13 @@ export default class Game {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion -= true
-
+        this.score+=1
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
           enemy.lives -= 1
           projectile.markedForDeletion = true
+      
         }
       })
     })

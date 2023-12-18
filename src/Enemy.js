@@ -1,4 +1,5 @@
 import spriteImage from './assets/sprites/Sprites.png'
+import Game from './Game'
 
 export default class Enemy {
     constructor(game) {
@@ -25,8 +26,12 @@ export default class Enemy {
 
     update(deltaTime) {
         this.x += this.speedX
-        if (this.x < 0) this.markedForDeletion = true
-        if (this.lives <= 0) this.markedForDeletion = true
+        if (this.x < 0) {
+            this.markedForDeletion = true
+        }
+        if (this.lives <= 0) {
+            this.markedForDeletion = true
+        }
 
         if (this.grounded) {
             this.speedY = 0
