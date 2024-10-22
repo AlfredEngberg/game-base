@@ -52,7 +52,7 @@ export default class Game {
     this.player.update(deltaTime)
 
     this.enemies.forEach((enemy) => {
-      enemy.update(this.player)
+      enemy.update(this.player, deltaTime)
       if (this.checkCollision(this.player, enemy)) {
         this.player.lives--
         enemy.markedForDeletion = true

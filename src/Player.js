@@ -1,5 +1,5 @@
 import Projectile from './Projectile.js'
-import spriteImage from './assets/css/sprites/playerSprite.png'
+import spriteImage from './assets/sprites/playerSprite.png'
 
 export default class Player {
   constructor(game) {
@@ -9,6 +9,11 @@ export default class Player {
     this.x = 30
     this.y = 100
 
+
+    this.maxAmmo = 20
+    this.ammo = 20
+    this.ammoTimer = 0
+    this.ammoInterval = 5000
     this.projectiles = []
 
     this.speedX = 0
@@ -70,7 +75,6 @@ export default class Player {
     }
 
 
-    // console.log(this.shooting)
     // play run or idle animation
     if (this.shooting) {
       this.maxFrame = this.attack.frames
@@ -96,6 +100,13 @@ export default class Player {
     this.projectiles = this.projectiles.filter(
       (projectile) => !projectile.markedForDeletion
     )
+
+    if (this.ammoTimer > this.ammoInterval && this.ammo < this.maxAmmo) {
+      this.ammoTimer = 0
+      this.ammo++
+    } else {
+      this.ammoTimer += deltaTime
+    }
 
     // flip sprite direction
     if (this.speedX < 0) {
