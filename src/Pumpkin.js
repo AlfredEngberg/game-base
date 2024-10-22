@@ -30,8 +30,6 @@ export default class Pumpkin extends Enemy {
   }
 
   update(player, deltaTime) {
-      this.markedForDeletion = true
-    
 
     // zombie Walk Animation
     if (this.speedX < 0) {
