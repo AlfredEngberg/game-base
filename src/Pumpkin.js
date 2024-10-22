@@ -1,5 +1,5 @@
 import Enemy from './Enemy.js'
-import skeletonImage from './assets/sprites/zombie_spritesheet.png'
+import zombieImage from './assets/sprites/zombie_spritesheet.png'
 
 export default class Pumpkin extends Enemy {
   constructor(game, x, y) {
@@ -12,12 +12,12 @@ export default class Pumpkin extends Enemy {
     this.lives = Math.floor(Math.random() * 1) + 1
     this.color = 'orange'
 
-    // Skeleton Walk Image
+    // Zombie Walk Image
     const image = new Image()
-    image.src = skeletonImage
+    image.src = zombieImage
     this.image = image
 
-    // Skeleton Walk Animation
+    // Zombie Walk Animation
     this.frameX = 1
     this.frameY = 1
     this.maxFrame = 8
@@ -30,7 +30,10 @@ export default class Pumpkin extends Enemy {
   }
 
   update(player, deltaTime) {
-    // Skeleton Walk Animation
+      this.markedForDeletion = true
+    
+
+    // zombie Walk Animation
     if (this.speedX < 0) {
       this.flip = true
     } else if (this.speedX > 0) {
@@ -80,7 +83,7 @@ export default class Pumpkin extends Enemy {
       context.restore()
     }
 
-    // Skeleton Debug
+    // zombie Debug
     if (this.game.debug) {
       context.strokeRect(this.x, this.y, this.width, this.height)
     }
