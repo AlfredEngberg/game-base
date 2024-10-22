@@ -106,7 +106,7 @@ export default class Player {
 
     // projectiles
     this.projectiles.forEach((projectile) => {
-      projectile.update()
+      projectile.update(deltaTime)
     })
     this.projectiles = this.projectiles.filter(
       (projectile) => !projectile.markedForDeletion
