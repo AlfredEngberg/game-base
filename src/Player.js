@@ -55,20 +55,31 @@ export default class Player {
   }
 
   update(deltaTime) {
-    if (this.game.keys.includes('ArrowLeft')) {
+    // Movement left and right
+    if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
       this.speedX = -this.maxSpeed
-    } else if (this.game.keys.includes('ArrowRight')) {
+    } else if (
+      this.game.keys.includes('ArrowRight') ||
+      this.game.keys.includes('d')
+    ) {
       this.speedX = this.maxSpeed
     } else {
       this.speedX = 0
     }
 
-    if (this.grounded) {
-      this.speedY = 0
+    // movemeny up and down
+    if (this.game.keys.includes('ArrowUp') || this.game.keys.includes('w')) {
+      this.speedY = -this.maxSpeed
+    } else if (
+      this.game.keys.includes('ArrowDown') ||
+      this.game.keys.includes('s')
+    ) {
+      this.speedY = this.maxSpeed
     } else {
-      this.speedY += this.game.gravity
+      this.speedY = 0
     }
 
+    // Jump
     if (this.game.keys.includes('ArrowUp') && this.grounded) {
       this.speedY = -this.jumpSpeed
       this.grounded = false
@@ -165,13 +176,28 @@ export default class Player {
     context.restore()
   }
 
-  shoot() {
+
+  shoot(mouseX, mouseY) {
     this.shooting = true
-    console.log('shoot ', this.shooting)
-    this.frameY = this.attack.frameY
-    this.maxFrame = this.attack.frames
-    this.projectiles.push(
-      new Projectile(this.game, this.x + this.width, this.y + this.height / 2)
+    // get angle between player and mouse
+    const angle = Math.atan2(
+      mouseY - (this.y + this.height / 2),
+      mouseX - (this.x + this.width / 2)
     )
+
+    if (this.ammo > 0) {
+      this.ammo--
+      this.projectiles.push(
+        new Projectile(
+          this.game,
+          this.x + this.width / 2,
+          this.y + this.height / 2,
+          angle
+        )
+      )
+    } else {
+      console.log('out of ammo')
+    }
   }
+
 }

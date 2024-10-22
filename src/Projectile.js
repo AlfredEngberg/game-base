@@ -1,8 +1,10 @@
+import arrowImage from './assets/sprites/arrow.png'
+
 export default class Projectile {
   constructor(game, x, y, angle) {
     this.game = game
-    this.width = 10
-    this.height = 4
+    this.width = 40
+    this.height = 5
     this.x = x
     this.y = y
     this.angle = angle
@@ -10,6 +12,20 @@ export default class Projectile {
     this.speed = 400
     this.damage = 1
     this.markedForDeletion = false
+
+    // Arrow sprite image
+    const image = new Image()
+    image.src = arrowImage
+    this.image = image
+
+    // Sprite animation variables
+    this.maxFrame = 8
+    this.fps = 20
+    this.timer = 0
+    this.interval = 1000 / this.fps
+
+    // Flip sprite
+    this.flip = false
   }
 
   update(deltaTime) {
@@ -27,11 +43,17 @@ export default class Projectile {
   }
 
   draw(context) {
+    // Draw arrow image and rotate it based on its angle
     context.save()
     context.translate(this.x, this.y)
     context.rotate(this.angle)
-    context.fillStyle = '#ff0'
-    context.fillRect(0, 0, this.width, this.height)
+    context.drawImage(
+      this.image,
+      0,
+      0,
+      this.width,
+      this.height,
+    )
     context.restore()
   }
 }
