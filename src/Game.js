@@ -20,66 +20,72 @@ export default class Game {
     this.enemyTimer = 0
     this.enemyInterval = 1000
 
+    this.gameStart = false
+
     this.player = new Player(this)
   }
 
   update(deltaTime) {
-    if (!this.gameOver) {
+    if (!this.gameOver && this.gameStart === true) {
       this.gameTime += deltaTime
     }
 
-    if (this.enemyTimer > this.enemyInterval) {
-      let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
-      let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
-      if (x === 0) {
-        y = Math.random() * this.height // if on left edge, randomize y position
-      } else if (x === this.width) {
-        y = Math.random() * this.height // if on right edge, randomize y position
-      } else if (y === 0) {
-        x = Math.random() * this.width // if on top edge, randomize x position
+    if (this.gameStart === true) {
+      if (this.enemyTimer > this.enemyInterval) {
+        let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
+        let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
+        if (x === 0) {
+          y = Math.random() * this.height // if on left edge, randomize y position
+        } else if (x === this.width) {
+          y = Math.random() * this.height // if on right edge, randomize y position
+        } else if (y === 0) {
+          x = Math.random() * this.width // if on top edge, randomize x position
+        } else {
+          x = Math.random() * this.width // if on bottom edge, randomize x position
+        }
+        if (Math.random() < 0.2) {
+          this.enemies.push(new Candy(this, x, y))
+        } else {
+          this.enemies.push(new Pumpkin(this, x, y))
+        }
+        this.enemyTimer = 0
       } else {
-        x = Math.random() * this.width // if on bottom edge, randomize x position
+        this.enemyTimer += deltaTime
       }
-      if (Math.random() < 0.2) {
-        this.enemies.push(new Candy(this, x, y))
-      } else {
-        this.enemies.push(new Pumpkin(this, x, y))
-      }
-      this.enemyTimer = 0
-    } else {
-      this.enemyTimer += deltaTime
-    }
-    this.player.update(deltaTime)
+      this.player.update(deltaTime)
 
-    this.enemies.forEach((enemy) => {
-      enemy.update(this.player, deltaTime)
-      if (this.checkCollision(this.player, enemy)) {
-        this.player.lives--
-        enemy.markedForDeletion = true
-        if (enemy.type === 'candy') {
-          this.player.ammo += 5
-        }
-      }
-      this.player.projectiles.forEach((projectile) => {
-        if (this.checkCollision(projectile, enemy)) {
-          if (enemy.lives > 1) {
-            enemy.lives -= projectile.damage
-          } else {
-            enemy.markedForDeletion = true
+      this.enemies.forEach((enemy) => {
+        enemy.update(this.player, deltaTime)
+        if (this.checkCollision(this.player, enemy)) {
+          this.player.lives--
+          enemy.markedForDeletion = true
+          if (enemy.type === 'candy') {
+            this.player.ammo += 5
           }
-          projectile.markedForDeletion = true
         }
+        this.player.projectiles.forEach((projectile) => {
+          if (this.checkCollision(projectile, enemy)) {
+            if (enemy.lives > 1) {
+              enemy.lives -= projectile.damage
+            } else {
+              enemy.markedForDeletion = true
+            }
+            projectile.markedForDeletion = true
+          }
+        })
       })
-    })
-    this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+      this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+    }
   }
 
   draw(context) {
     this.ui.draw(context)
-    this.player.draw(context)
-    this.enemies.forEach((enemy) => {
-      enemy.draw(context)
-    })
+    if (this.gameStart === true) {
+      this.player.draw(context)
+      this.enemies.forEach((enemy) => {
+        enemy.draw(context)
+      })
+    }
   }
 
   checkCollision(object1, object2) {

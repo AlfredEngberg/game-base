@@ -13,12 +13,27 @@ export default class UserInterface {
     context.shadowOffsetY = 2
     context.shadowColor = 'black'
 
-    context.textAlign = 'left'
-    context.font = `${this.fontSize}px ${this.fontFamily}`
-    context.fillText(`Lives: ${this.game.player.lives}`, 20, 30)
-    context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 60)
-    context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
+    if (this.game.gameStart === true) {
+      context.textAlign = 'left'
+      context.font = `${this.fontSize}px ${this.fontFamily}`
+      context.fillText(`Lives: ${this.game.player.lives}`, 20, 30)
+      context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 60)
+      context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
+    }
 
+    // Start Game Text
+    if (this.game.gameStart === false) {
+    context.textAlign = 'center'
+    context.font = `50px ${this.fontFamily}`
+    context.strokeRect(this.game.width / 2.6 - 150, this.game.height / 3, 500, 100)
+    context.fillText(
+      'Press "G" to start!',
+      this.game.width / 2,
+      this.game.height / 2 - 20
+    )
+  }
+
+    
     if (this.game.gameOver) {
       context.textAlign = 'center'
       context.font = `50px ${this.fontFamily}`

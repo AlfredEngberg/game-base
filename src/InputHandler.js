@@ -10,6 +10,7 @@ export default class InputHandler {
           event.key === 'ArrowDown' ||
           event.key === 'ArrowLeft' ||
           event.key === 'ArrowRight' ||
+          event.key === 'g' ||
           event.key === 'w' ||
           event.key === 'a' ||
           event.key === 's' ||
@@ -25,6 +26,11 @@ export default class InputHandler {
 
       if (event.key === 'p') {
         this.game.debug = !this.game.debug
+      }
+
+      if (event.key === 'g') {
+        this.game.gameStart = true
+        console.log('start game')
       }
     })
 
