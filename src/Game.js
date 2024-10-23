@@ -21,6 +21,9 @@ export default class Game {
     this.enemyInterval = 1000
 
     this.gameStart = false
+    this.viewMainMenu = true
+    this.viewControls = false
+    this.viewCredits = false
 
     this.player = new Player(this)
   }

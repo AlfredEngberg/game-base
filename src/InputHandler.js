@@ -11,6 +11,8 @@ export default class InputHandler {
           event.key === 'ArrowLeft' ||
           event.key === 'ArrowRight' ||
           event.key === 'g' ||
+          event.key === 'c' ||
+          event.key === 'b' ||
           event.key === 'w' ||
           event.key === 'a' ||
           event.key === 's' ||
@@ -29,8 +31,30 @@ export default class InputHandler {
       }
 
       if (event.key === 'g') {
+        this.game.viewControls = false
+        this.game.viewCredits = false
+        this.game.viewMainMenu = false
         this.game.gameStart = true
         console.log('start game')
+      }
+      if (event.key === 'c') {
+        if (this.game.viewCredits === true) {
+          this.game.viewCredits = false
+        }
+        this.game.viewControls = true
+        this.game.viewMainMenu = false
+      }
+      if (event.key === 'v') {
+        if (this.game.viewControls === true) {
+          this.game.viewControls = false
+        }
+        this.game.viewCredits = true
+        this.game.viewMainMenu = false
+      }
+      if (event.key === 'b') {
+        this.game.viewControls = false
+        this.game.viewCredits = false
+        this.game.viewMainMenu = true
       }
     })
 

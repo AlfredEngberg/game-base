@@ -21,19 +21,85 @@ export default class UserInterface {
       context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
     }
 
-    // Start Game Text
-    if (this.game.gameStart === false) {
-    context.textAlign = 'center'
-    context.font = `50px ${this.fontFamily}`
-    context.strokeRect(this.game.width / 2.6 - 150, this.game.height / 3, 500, 100)
-    context.fillText(
-      'Press "G" to start!',
-      this.game.width / 2,
-      this.game.height / 2 - 20
-    )
-  }
+    // Main menu
+    if (this.game.gameStart === false && this.game.viewMainMenu === true) {
+      context.textAlign = 'center'
+      context.font = `50px ${this.fontFamily}`
+      context.strokeRect(this.game.width / 2.6 - 150, this.game.height / 3, 500, 100)
+      context.fillText(
+        'Press "G" to start!',
+        this.game.width / 2,
+        this.game.height / 2 - 20
+      )
+      context.fillText(
+        'Press "C" to view controls',
+        this.game.width / 2,
+        this.game.height / 1.4 - 20
+      )
+      context.fillText(
+        'Press "V" to view credits',
+        this.game.width / 2,
+        this.game.height / 1.1 - 20
+      )
+      context.fillText(
+        'Press "G" to start!',
+        this.game.width / 2,
+        this.game.height / 2 - 20
+      )
+    }
 
-    
+    // View Controls
+    if (this.game.viewControls === true && this.game.viewCredits === false) {
+      context.textAlign = 'center'
+      context.font = `50px ${this.fontFamily}`
+      context.strokeRect(this.game.width / 4 - 150, this.game.height / 3, 750, 100)
+      context.fillText(
+        'WASD to move, Click to shoot',
+        this.game.width / 2,
+        this.game.height / 2 - 20,
+      )
+      context.fillText(
+        'press "B" to go back',
+        this.game.width / 2,
+        this.game.height / 1.4 - 20
+      )
+    }
+
+    // View Credits
+    if (this.game.viewCredits === true && this.game.viewControls === false) {
+      context.textAlign = 'center'
+      context.font = `50px ${this.fontFamily}`
+/*       context.strokeRect(this.game.width / 4 - 150, this.game.height / 3, 750, 100)
+ */      context.fillText(
+        'Game created by:', 
+        this.game.width / 2,
+        this.game.height / 5 - 20,
+      )
+        context.fillText(
+        'Alfred Engberg',
+        this.game.width / 2,
+        this.game.height / 2.8 - 20,
+      )
+        context.fillText(
+        'Noel Johansson',
+        this.game.width / 2,
+        this.game.height / 2 - 20,
+      )
+        context.fillText(
+        'Fabian Sigfridsson',
+        this.game.width / 2,
+        this.game.height / 1.5 - 20,
+      )
+
+      
+      context.fillText(
+        'press "B" to go back',
+        this.game.width / 2,
+        this.game.height / 1.2 - 20
+      )
+    }
+
+
     if (this.game.gameOver) {
       context.textAlign = 'center'
       context.font = `50px ${this.fontFamily}`
