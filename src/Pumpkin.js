@@ -17,25 +17,43 @@ export default class Pumpkin extends Enemy {
     image.src = zombieImage
     this.image = image
 
-    // Zombie Walk Animation
-    this.frameX = 1
-    this.frameY = 1
-    this.maxFrame = 8
+    // sprite Animation
+    this.frameX = 0
+    this.frameY = 0
+    this.maxFrame = 0
     this.fps = 20
     this.timer = 0
     this.interval = 1000 / this.fps
+    this.walk = {
+      frameY: 1,
+      frames: 8,
+    }
+    this.death = {
+      frameY: 3,
+      frames: 9,
+    }
 
     // Flip sprite
     this.flip = false
   }
 
   update(player, deltaTime) {
+    const dx = player.x - this.x // calculate the x distance to the player
+    const dy = player.y - this.y // calculate the y distance to the player
+    const distance = Math.sqrt(dx * dx + dy * dy) // calculate the total distance to the player
+    const speedX = (dx / distance) * this.speed // calculate the x speed towards the player
+    const speedY = (dy / distance) * this.speed // calculate the y speed towards the player
 
-    // zombie Walk Animation
-    if (this.speedX < 0) {
-      this.flip = true
-    } else if (this.speedX > 0) {
-      this.flip = false
+
+
+
+    // Zombie Animation
+    if (speedX !== 0) {
+      this.frameY = this.walk.frameY
+      this.maxFrame = this.walk.frames
+    } else {
+      this.frameY = this.death.frameY
+      this.maxFrame = this.death.frames
     }
 
     if (this.timer > this.interval) {
@@ -49,13 +67,14 @@ export default class Pumpkin extends Enemy {
       this.frameX = 0
     }
 
-    const dx = player.x - this.x // calculate the x distance to the player
-    const dy = player.y - this.y // calculate the y distance to the player
-    const distance = Math.sqrt(dx * dx + dy * dy) // calculate the total distance to the player
-    const speedX = (dx / distance) * this.speed // calculate the x speed towards the player
-    const speedY = (dy / distance) * this.speed // calculate the y speed towards the player
     this.x += speedX // move the enemy towards the player on the x axis
     this.y += speedY // move the enemy towards the player on the y axis
+
+    if (speedX < 0) {
+      this.flip = true
+    } else if (this.speedX > 0) {
+      this.flip = false
+    }
   }
 
 

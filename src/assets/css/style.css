@@ -20,3 +20,8 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.container {
+  width: min(80ch, 100vw - 2rem);
+  margin-inline: auto;
+}

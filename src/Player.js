@@ -79,13 +79,6 @@ export default class Player {
       this.speedY = 0
     }
 
-    // Jump
-    if (this.game.keys.includes('ArrowUp') && this.grounded) {
-      this.speedY = -this.jumpSpeed
-      this.grounded = false
-    }
-
-
     // play run or idle animation
     if (this.shooting) {
       this.maxFrame = this.attack.frames
