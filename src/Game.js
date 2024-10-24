@@ -2,6 +2,7 @@ import InputHandler from './InputHandler.js'
 import Player from './Player.js'
 import UserInterface from './UserInterface.js'
 import Pumpkin from './Pumpkin.js'
+import boss from './boss.js'
 import Candy from './Candy.js'
 export default class Game {
   constructor(width, height, canvasPosition) {
@@ -19,6 +20,9 @@ export default class Game {
     this.enemies = []
     this.enemyTimer = 0
     this.enemyInterval = 1000
+    this.enemiesKilled = 10
+    this.bossSpawned = false
+
 
     this.gameStart = false
     this.viewMainMenu = true
@@ -34,7 +38,7 @@ export default class Game {
     }
 
     if (this.gameStart === true) {
-      if (this.enemyTimer > this.enemyInterval) {
+      if (this.enemyTimer > this.enemyInterval && this.enemiesKilled < 10) {
         let x = Math.random() < 0.5 ? 0 : this.width // spawn on left or right edge
         let y = Math.random() < 0.5 ? 0 : this.height // spawn on top or bottom edge
         if (x === 0) {
@@ -52,6 +56,10 @@ export default class Game {
           this.enemies.push(new Pumpkin(this, x, y))
         }
         this.enemyTimer = 0
+      } else if (this.enemiesKilled === 10 && this.bossSpawned === false) {
+        this.enemies.push(new boss(this, 200, 100))
+        this.bossSpawned = true
+        console.log('boss spawned')
       } else {
         this.enemyTimer += deltaTime
       }
@@ -59,8 +67,7 @@ export default class Game {
 
       this.enemies.forEach((enemy) => {
         enemy.update(this.player, deltaTime)
-        if (this.checkCollision(this.player, enemy)) {
-          this.player.lives--
+        if (this.checkCollision(this.player, enemy) && this.bossSpawned === false) {
           enemy.markedForDeletion = true
           if (enemy.type === 'candy') {
             this.player.ammo += 5
@@ -71,6 +78,7 @@ export default class Game {
             if (enemy.lives > 1) {
               enemy.lives -= projectile.damage
             } else {
+              this.enemiesKilled++
               enemy.markedForDeletion = true
             }
             projectile.markedForDeletion = true

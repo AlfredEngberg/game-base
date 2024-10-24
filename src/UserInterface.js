@@ -19,6 +19,7 @@ export default class UserInterface {
       context.fillText(`Lives: ${this.game.player.lives}`, 20, 30)
       context.fillText(`Ammo: ${this.game.player.ammo}`, 20, 60)
       context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 90)
+      context.fillText(`Enemies killed: ${this.game.enemiesKilled}`, 20, 120)
     }
 
     // Main menu
@@ -71,27 +72,27 @@ export default class UserInterface {
       context.font = `50px ${this.fontFamily}`
 /*       context.strokeRect(this.game.width / 4 - 150, this.game.height / 3, 750, 100)
  */      context.fillText(
-        'Game created by:', 
+        'Game created by:',
         this.game.width / 2,
         this.game.height / 5 - 20,
       )
-        context.fillText(
+      context.fillText(
         'Alfred Engberg',
         this.game.width / 2,
         this.game.height / 2.8 - 20,
       )
-        context.fillText(
+      context.fillText(
         'Noel Johansson',
         this.game.width / 2,
         this.game.height / 2 - 20,
       )
-        context.fillText(
+      context.fillText(
         'Fabian Sigfridsson',
         this.game.width / 2,
         this.game.height / 1.5 - 20,
       )
 
-      
+
       context.fillText(
         'press "B" to go back',
         this.game.width / 2,
